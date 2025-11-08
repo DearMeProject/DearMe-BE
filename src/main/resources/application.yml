@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/dearme_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: qwer1234!
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+
+jwt:
+  secret: your-secret-key-example-please-change
+  access-expiration: 3600000
+  refresh-expiration: 1209600000
