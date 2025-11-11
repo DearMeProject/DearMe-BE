@@ -1,8 +1,10 @@
 spring:
+  application:
+    name: DearME-BE
   datasource:
-    url: jdbc:mysql://localhost:3307/dearme_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/dearme_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password:
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: update
