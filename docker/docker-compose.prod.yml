@@ -1,0 +1,32 @@
+services:
+  dearme-app:
+    image: dearmeproject/dearme:prod-latest
+    container_name: dearme-prod-app
+    restart: unless-stopped
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - mysql
+    env_file:
+      - .env
+    networks:
+      - dearme-net
+
+  mysql:
+    image: mysql:8.0
+    container_name: dearme-prod-mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=dearme
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - dearme-net
+
+networks:
+  dearme-net:
+    driver: bridge
