@@ -1,4 +1,4 @@
-<img width="1280" height="997" alt="DearMe배경(밤)" src="https://github.com/user-attachments/assets/04803117-8fba-43c0-8966-42d6681e155d" /># DearMe-BE
+# DearMe-BE
 나의 하루에, AI가 건네는 따뜻한 한마디 🌙
 </br>
 
