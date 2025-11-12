@@ -32,6 +32,7 @@
 #### 1️⃣ 메모 작성 (`POST /api/memos`)
 - [ ] 사용자는 감정 이모지, 감정 점수, 제목, 내용을 입력할 수 있다.
 - [ ] 입력값 검증 (`date`, `emoji`, `emotionScore`, `title`, `content`)
+- [ ] 같은 날짜에도 여러 개의 메모를 작성할 수 있다
 - [ ] DB 저장 후 생성된 `memoId` 반환
 - [ ] 정상 시 `201 Created`, 유효성 오류 시 `400 Bad Request`
 
