@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### application.yml ###
+application-local.yml
+
+# MySQL Docker volume data
+docker/mysql/data/
