@@ -28,12 +28,10 @@
 
 
 ## 🌿 기능 목록
-### 📝 메모 도메인
 
 #### 1️⃣ 메모 작성 (`POST /api/memos`)
 - [ ] 사용자는 감정 이모지, 감정 점수, 제목, 내용을 입력할 수 있다.
 - [ ] 입력값 검증 (`date`, `emoji`, `emotionScore`, `title`, `content`)
-- [ ] 동일 날짜 중복 작성 불가
 - [ ] DB 저장 후 생성된 `memoId` 반환
 - [ ] 정상 시 `201 Created`, 유효성 오류 시 `400 Bad Request`
 
@@ -43,7 +41,7 @@
 - [ ] 성공 시 `200 OK`
 
 #### 3️⃣ 특정 메모 상세 조회 (`GET /api/memos/{memoId}`)
-- [ ] 경로의 ID를 검증한다.
+- [ ] 경로의 memoID를 검증한다.
 - [ ] 요청한 사용자의 `X-Client-Id`와 일치하지 않으면 `403 Forbidden`
 - [ ] 성공 시 `content` 반환
 
