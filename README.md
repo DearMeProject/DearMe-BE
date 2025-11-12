@@ -20,7 +20,7 @@
 </br>
 
 ## ⚙️ 기술 스택
-- **Backend:** Spring Boot 3.x, JPA, MySQL
+- **Backend:** Spring Boot, JPA, MySQL
 - **Infra:** Docker, GitHub Actions
 - **AI Integration:** OpenAI GPT API
 
