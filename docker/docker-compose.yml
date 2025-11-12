@@ -1,7 +1,7 @@
 services:
   # MySQL
   mysql:
-    image: mysql:8.0
+    image: mysql:9.0
     container_name: dearme-mysql
     ports:
       - '3306:3306'
