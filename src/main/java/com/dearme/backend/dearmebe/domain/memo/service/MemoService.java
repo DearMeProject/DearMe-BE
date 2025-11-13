@@ -28,10 +28,7 @@ public class MemoService {
         EmotionEmoji emoji = EmotionEmoji.from(request.getEmoji());
 
         if (!emoji.isValidScore(request.getEmotionScore())) {
-            throw new CustomException(
-                    ErrorCode.BAD_REQUEST,
-                    String.format("이모지 %s 에 해당하는 감정 점수는 %d입니다.", emoji.getEmoji(), emoji.getEmotionScore())
-            );
+            throw new CustomException(ErrorCode.INVALID_EMOTION_SCORE, "유효하지 않은 감정 점수입니다.");
         }
 
         Memo memo = Memo.createMemo(

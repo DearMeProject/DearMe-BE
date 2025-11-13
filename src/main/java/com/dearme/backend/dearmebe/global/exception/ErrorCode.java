@@ -26,6 +26,7 @@ public enum ErrorCode {
     INVALID_MEMO_REQUEST(400, HttpStatus.BAD_REQUEST, "메모 요청 데이터가 올바르지 않습니다."),
     INVALID_DATE_FORMAT(400, HttpStatus.BAD_REQUEST, "날짜 형식은 YYYY-MM-DD 이어야 합니다."),
     INVALID_EMOJI_TYPE(400, HttpStatus.BAD_REQUEST, "유효하지 않는 이모지입니다."),
+    INVALID_EMOTION_SCORE(400, HttpStatus.BAD_REQUEST, "유효하지 않은 감정 점수입니다."),
 
     // AI 상담 관련
     AI_COUNSEL_FAILED(200, HttpStatus.OK, "AI 상담 응답을 생성하지 못했습니다. 기본 문구로 대체합니다.");
