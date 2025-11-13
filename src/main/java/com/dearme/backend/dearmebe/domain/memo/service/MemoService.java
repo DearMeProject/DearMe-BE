@@ -3,6 +3,7 @@ package com.dearme.backend.dearmebe.domain.memo.service;
 import com.dearme.backend.dearmebe.common.constant.EmotionEmoji;
 import com.dearme.backend.dearmebe.domain.memo.dto.request.MemoCreateRequest;
 import com.dearme.backend.dearmebe.domain.memo.dto.response.MemoCreateResponse;
+import com.dearme.backend.dearmebe.domain.memo.dto.response.MemoDetailResponse;
 import com.dearme.backend.dearmebe.domain.memo.dto.response.MemoListResponse;
 import com.dearme.backend.dearmebe.domain.memo.entity.Memo;
 import com.dearme.backend.dearmebe.domain.memo.repository.MemoRepository;
@@ -52,5 +53,16 @@ public class MemoService {
         }
 
         return MemoListResponse.from(clientId, memos);
+    }
+
+    public MemoDetailResponse getMemoDetail(String clientId, Long memoId) {
+        Memo memo = memoRepository.findById(memoId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMO_NOT_FOUND, "해당 메모를 찾을 수 없습니다."));
+
+        if (!memo.isOwner(clientId)) {
+            throw new CustomException(ErrorCode.MEMO_ACCESS_DENIED, "해당 메모에 접근할 권한이 없습니다.");
+        }
+
+        return MemoDetailResponse.from(memo);
     }
 }
