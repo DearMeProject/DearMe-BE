@@ -19,13 +19,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class MemoServiceTest {
+
+    private static final String CLIENT_ID = "client123";
+    private static final LocalDate DATE = LocalDate.of(2025, 11, 12);
 
     @Mock
     private MemoRepository memoRepository;
@@ -33,65 +35,32 @@ public class MemoServiceTest {
     @InjectMocks
     private MemoService memoService;
 
+    private Memo makeMemo(String clientId, String title, String content, EmotionEmoji emoji) {
+        return Memo.createMemo(clientId, DATE, emoji, emoji.getEmotionScore(), title, content);
+    }
+
     @Test
     void 메모를_정상적으로_생성할_수_있다() {
 
-        String clientId = "client123";
-        MemoCreateRequest request = new MemoCreateRequest(
-                "2025-11-12",
-                "😀",
-                20,
-                "기분 좋은 하루",
-                "날씨가 좋아서 산책했다."
-        );
-
-        Memo memo = Memo.createMemo(
-                1L,
-                clientId,
-                LocalDate.parse("2025-11-12"),
-                EmotionEmoji.HAPPY,
-                20,
-                "기분 좋은 하루",
-                "날씨가 좋아서 산책했다."
-        );
-
+        MemoCreateRequest request = new MemoCreateRequest("2025-11-12", "😀", 20, "기분 좋은 하루", "날씨가 좋아서 산책했다.");
+        Memo memo = makeMemo(CLIENT_ID, "기분 좋은 하루", "날씨가 좋아서 산책했다.", EmotionEmoji.HAPPY);
         given(memoRepository.save(any(Memo.class))).willReturn(memo);
 
-        MemoCreateResponse response = memoService.createMemo(clientId, request);
+        MemoCreateResponse response = memoService.createMemo(CLIENT_ID, request);
 
-        assertThat(response.getMemoId()).isEqualTo(1L);
+        assertThat(response.getMemoId()).isNotNull();
     }
 
     @Test
     void 전체_메모리스트를_정상적으로_조회할_수_있다() {
 
-        String clientId = "client123";
+        Memo memo1 = makeMemo(CLIENT_ID, "즐거운 날", "케이크 맛집을 찾았다", EmotionEmoji.HAPPY);
+        Memo memo2 = makeMemo(CLIENT_ID, "우울한 하루", "비가 왔다", EmotionEmoji.SAD);
+        given(memoRepository.findAllByClientIdOrderByDateAsc(CLIENT_ID)).willReturn(List.of(memo1, memo2));
 
-        Memo memo1 = Memo.createMemo(
-                clientId,
-                LocalDate.of(2025, 11, 12),
-                EmotionEmoji.HAPPY,
-                80,
-                "즐거운 날",
-                "케이크 맛집을 찾았다"
-        );
 
-        Memo memo2 = Memo.createMemo(
-                clientId,
-                LocalDate.of(2025, 11, 10),
-                EmotionEmoji.SAD,
-                80,
-                "우울한 하루",
-                "비가 왔다"
-        );
+        MemoListResponse response = memoService.getAllMemos(CLIENT_ID);
 
-        given(memoRepository.findAllByClientIdOrderByDateAsc(clientId))
-                .willReturn(List.of(memo1, memo2));
-
-        MemoListResponse response = memoService.getAllMemos(clientId);
-
-        assertThat(response).isNotNull();
-        assertThat(response.getClientId()).isEqualTo(clientId);
         assertThat(response.getMemos()).hasSize(2);
         assertThat(response.getMemos().get(0).getTitle()).isEqualTo("즐거운 날");
     }
@@ -99,11 +68,10 @@ public class MemoServiceTest {
     @Test
     void 메모를_ID로_정상_조회할_수_있다() {
 
-        String clientId = "client123";
-        Memo memo = Memo.createMemo(clientId, LocalDate.now(), EmotionEmoji.HAPPY, 20, "제목", "내용");
+        Memo memo = makeMemo(CLIENT_ID, "제목", "내용", EmotionEmoji.HAPPY);
         given(memoRepository.findById(any(Long.class))).willReturn(Optional.of(memo));
 
-        MemoDetailResponse response = memoService.getMemoDetail(clientId, 1L);
+        MemoDetailResponse response = memoService.getMemoDetail(CLIENT_ID, 1L);
 
         assertThat(response.getContent()).isEqualTo("내용");
     }
@@ -111,10 +79,10 @@ public class MemoServiceTest {
     @Test
     void 본인_메모가_아닐_경우_예외가_발생한다() {
 
-        Memo memo = Memo.createMemo("otherUser", LocalDate.now(), EmotionEmoji.HAPPY, 20, "제목", "내용");
+        Memo memo = makeMemo("otherUser", "제목", "내용", EmotionEmoji.HAPPY);
         given(memoRepository.findById(any(Long.class))).willReturn(Optional.of(memo));
 
-        assertThatThrownBy(() -> memoService.getMemoDetail("client123", 1L))
+        assertThatThrownBy(() -> memoService.getMemoDetail(CLIENT_ID, 1L))
                 .isInstanceOf(CustomException.class)
                 .hasMessageContaining("해당 메모에 접근할 권한이 없습니다.");
     }

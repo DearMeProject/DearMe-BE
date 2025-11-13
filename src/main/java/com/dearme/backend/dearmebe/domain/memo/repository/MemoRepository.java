@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface MemoRepository extends JpaRepository<Memo, Long> {
 
     List<Memo> findByClientId(String clientId);
+
     List<Memo> findAllByClientIdOrderByDateAsc(String clientId);
 
     Optional<Memo> findById(Long id);

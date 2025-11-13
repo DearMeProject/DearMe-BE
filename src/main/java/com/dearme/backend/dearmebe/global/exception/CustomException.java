@@ -1,6 +1,6 @@
 package com.dearme.backend.dearmebe.global.exception;
 
-public class CustomException extends RuntimeException{
+public class CustomException extends RuntimeException {
     private final ErrorCode errorCode;
     private final String errorMsg;
 

@@ -18,7 +18,15 @@ public class ExceptionDto {
         return new ExceptionDto(errorCode, errorMsg);
     }
 
-    public Integer getCode() { return code; }
-    public String getMessage() { return message; }
-    public String getErrorMsg() { return errorMsg; }
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
 }
