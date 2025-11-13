@@ -27,7 +27,6 @@ public class MemoService {
     public MemoCreateResponse createMemo(String clientId, MemoCreateRequest request) {
         EmotionEmoji emoji = EmotionEmoji.from(request.getEmoji());
 
-        // 감정 점수 검증
         if (!emoji.isValidScore(request.getEmotionScore())) {
             throw new CustomException(
                     ErrorCode.BAD_REQUEST,

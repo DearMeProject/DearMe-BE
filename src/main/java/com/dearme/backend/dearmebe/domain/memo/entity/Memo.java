@@ -37,7 +37,6 @@ public class Memo {
     @Column(nullable = false, length = 10000)
     private String content;
 
-    // 기본 생성용 팩토리 (서비스 코드 이용)
     public static Memo createMemo(String clientId, LocalDate date, EmotionEmoji emoji, int emotionScore, String title, String content) {
         Memo memo = new Memo();
         memo.clientId = clientId;
@@ -49,7 +48,6 @@ public class Memo {
         return memo;
     }
 
-    // 오버로딩된 테스트용 팩토리 (id 지정 가능)
     public static Memo createMemo(Long id, String clientId, LocalDate date, EmotionEmoji emoji, int emotionScore, String title, String content) {
         Memo memo = new Memo();
         memo.id = id;
@@ -60,10 +58,6 @@ public class Memo {
         memo.title = title;
         memo.content = content;
         return memo;
-    }
-
-    public boolean isOwner(String clientId) {
-        return this.clientId.equals(clientId);
     }
 }
 
