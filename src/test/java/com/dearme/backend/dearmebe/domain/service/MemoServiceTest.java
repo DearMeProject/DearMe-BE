@@ -14,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,6 +45,9 @@ public class MemoServiceTest {
 
         MemoCreateRequest request = new MemoCreateRequest("2025-11-12", "😀", 20, "기분 좋은 하루", "날씨가 좋아서 산책했다.");
         Memo memo = makeMemo(CLIENT_ID, "기분 좋은 하루", "날씨가 좋아서 산책했다.", EmotionEmoji.HAPPY);
+
+        ReflectionTestUtils.setField(memo, "id", 1L);
+
         given(memoRepository.save(any(Memo.class))).willReturn(memo);
 
         MemoCreateResponse response = memoService.createMemo(CLIENT_ID, request);
