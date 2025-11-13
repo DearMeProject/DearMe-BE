@@ -22,7 +22,7 @@
 ## ⚙️ 기술 스택
 - **Backend:** Spring Boot, JPA, MySQL
 - **Infra:** Docker, GitHub Actions
-- **AI Integration:** OpenAI GPT API
+- **AI Integration:** OpenAI Gemini API
 
 </br>
 
@@ -75,7 +75,7 @@
 </br>
 
 ## 💡 컨벤션
-- **Commit:** Angular Style (`feat:`, `fix:`, `refactor:`)
+- **Commit:** 타입(기능명): 한 줄 요약
 - **Branch:** `feat/#3-memo-domain`
 - **PR Template:** 기능 단위 명세 중심으로 작성
 - **Code Style:** 15라인 이하 함수, SRP 원칙 준수
