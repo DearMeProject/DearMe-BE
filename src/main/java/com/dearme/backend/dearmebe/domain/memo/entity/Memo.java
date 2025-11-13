@@ -59,6 +59,10 @@ public class Memo {
         memo.content = content;
         return memo;
     }
+
+    public boolean isOwner(String clientId) {
+        return this.clientId.equals(clientId);
+    }
 }
 
 
