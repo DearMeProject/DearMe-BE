@@ -34,17 +34,18 @@
 - [ ] 입력값 검증 (`date`, `emoji`, `emotionScore`, `title`, `content`)
 - [ ] 같은 날짜에도 여러 개의 메모를 작성할 수 있다
 - [ ] DB 저장 후 생성된 `memoId` 반환
-- [ ] 정상 시 `201 Created`, 유효성 오류 시 `400 Bad Request`
+- [ ] 정상 시 `201 Created`, 유효성 오류 시 `400 Bad Request`반환
 
 #### 2️⃣ 전체 메모 리스트 조회 (`GET /api/memos`)
 - [ ] 사용자의 모든 메모를 `X-Client-Id` 기준으로 조회한다.
 - [ ] `memoId`, `date`, `emoji`, `title`, `emotionScore` 반환
-- [ ] 성공 시 `200 OK`, 클라이언트 ID 누락 시 `400 Bad Request`
+- [ ] 성공 시 `200 OK`, 클라이언트 ID 누락 시 `400 Bad Request`반환
 
 #### 3️⃣ 특정 메모 상세 조회 (`GET /api/memos/{memoId}`)
 - [ ] 경로의 memoID를 검증한다.
-- [ ] 요청한 사용자의 `X-Client-Id`와 일치하지 않으면 `403 Forbidden`
-- [ ] 성공 시 `content` 반환
+- [ ] 메모가 없을 시 `404 Not Found`반환
+- [ ] 요청한 사용자의 `X-Client-Id`와 일치하지 않으면 `403 Forbidden`반환
+- [ ] 성공 시 `200 OK` 및 `content` 반환
 
 #### 4️⃣ AI 감정 공감 답장 생성 (`POST /api/memos/counsel`)
 - [ ] 사용자가 선택한 메모 ID 배열을 보낸다.
