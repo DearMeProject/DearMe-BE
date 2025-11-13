@@ -32,7 +32,6 @@ public enum ErrorCode {
     AI_COUNSEL_FAILED(200, HttpStatus.OK, "AI 상담 응답을 생성하지 못했습니다. 기본 문구로 대체합니다.");
 
 
-
     private final int code;
     private final HttpStatus httpStatus;
     private final String message;
@@ -43,8 +42,16 @@ public enum ErrorCode {
         this.message = message;
     }
 
-    public Integer getCode() { return code; }
-    public HttpStatus getHttpStatus() { return httpStatus; }
-    public String getMessage() { return message; }
+    public Integer getCode() {
+        return code;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }
 

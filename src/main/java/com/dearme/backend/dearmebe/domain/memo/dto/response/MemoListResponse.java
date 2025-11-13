@@ -25,6 +25,7 @@ public class MemoListResponse {
     @Getter
     @AllArgsConstructor
     public static class MemoSimpleResponse {
+
         private Long memoId;
         private String date;
         private String emoji;
