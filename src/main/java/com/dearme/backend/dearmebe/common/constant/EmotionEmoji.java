@@ -34,5 +34,9 @@ public enum EmotionEmoji {
         }
         throw new CustomException(ErrorCode.INVALID_EMOJI_TYPE, "유효하지 않은 이모지입니다.");
     }
+
+    public boolean isValidScore(int emotionScore) {
+        return this.emotionScore == emotionScore;
+    }
 }
 
