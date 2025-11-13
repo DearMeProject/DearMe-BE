@@ -39,7 +39,7 @@
 #### 2️⃣ 전체 메모 리스트 조회 (`GET /api/memos`)
 - [ ] 사용자의 모든 메모를 `X-Client-Id` 기준으로 조회한다.
 - [ ] `memoId`, `date`, `emoji`, `title`, `emotionScore` 반환
-- [ ] 성공 시 `200 OK`
+- [ ] 성공 시 `200 OK`, 클라이언트 ID 누락 시 `400 Bad Request`
 
 #### 3️⃣ 특정 메모 상세 조회 (`GET /api/memos/{memoId}`)
 - [ ] 경로의 memoID를 검증한다.
