@@ -43,10 +43,30 @@ class MemoRepositoryTest {
 
         memoRepository.save(memo1);
         memoRepository.save(memo2);
-        var all = memoRepository.findAllByClientIdOrderByDateDesc("client123");
+        var all = memoRepository.findAllByClientIdOrderByDateAsc("client123");
 
         assertThat(all).hasSize(2);
         assertThat(all).extracting(Memo::getDate).containsOnly(date);
 
+    }
+
+    @Test
+    void 특정_사용자의_전체_메모리스트를_오름차순으로_조회한다() {
+
+        String clientId = "client123";
+
+        Memo memo1 = Memo.createMemo(clientId, LocalDate.of(2025, 11, 10),
+                EmotionEmoji.HAPPY, 20, "산책", "산책을 해서 기분이 좋았다.");
+        Memo memo2 = Memo.createMemo(clientId, LocalDate.of(2025, 11, 12),
+                EmotionEmoji.SAD, 60, "우울한 하루", "비가 와서 우울했다.");
+
+        memoRepository.save(memo1);
+        memoRepository.save(memo2);
+
+        List<Memo> memos = memoRepository.findAllByClientIdOrderByDateAsc(clientId);
+
+        assertThat(memos).hasSize(2);
+        assertThat(memos.get(0).getDate()).isBefore(memos.get(1).getDate());
+        assertThat(memos.get(0).getTitle()).isEqualTo("산책");
     }
 }

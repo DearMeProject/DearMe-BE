@@ -21,10 +21,12 @@ public enum ErrorCode {
 
     // 메모 관련
     MEMO_NOT_FOUND(404, HttpStatus.NOT_FOUND, "해당 메모를 찾을 수 없습니다."),
+    NO_MEMOS_FOUND(404, HttpStatus.NOT_FOUND, "등록된 메모가 없습니다."),
     MEMO_ACCESS_DENIED(403, HttpStatus.FORBIDDEN, "해당 메모에 접근할 권한이 없습니다."),
     INVALID_MEMO_REQUEST(400, HttpStatus.BAD_REQUEST, "메모 요청 데이터가 올바르지 않습니다."),
     INVALID_DATE_FORMAT(400, HttpStatus.BAD_REQUEST, "날짜 형식은 YYYY-MM-DD 이어야 합니다."),
     INVALID_EMOJI_TYPE(400, HttpStatus.BAD_REQUEST, "유효하지 않는 이모지입니다."),
+    INVALID_EMOTION_SCORE(400, HttpStatus.BAD_REQUEST, "유효하지 않은 감정 점수입니다."),
 
     // AI 상담 관련
     AI_COUNSEL_FAILED(200, HttpStatus.OK, "AI 상담 응답을 생성하지 못했습니다. 기본 문구로 대체합니다.");

@@ -20,12 +20,12 @@ public class GlobalExceptionHandler {
     // CustomException 처리
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ApiResponse<?>> handleCustomException(CustomException e) {
-        log.error("Custom Exception: {} - {}", e.getErrorCode(), e.getErrorMsg());
+        log.error("Custom Exception: {} - {}", e.getErrorCode(), e.getMessage());
         return ResponseEntity
                 .status(e.getErrorCode().getHttpStatus())
                 .body(ApiResponse.error(
                         e.getErrorCode().getHttpStatus(),
-                        e.getErrorMsg(),
+                        e.getMessage(),
                         null
                 ));
     }
