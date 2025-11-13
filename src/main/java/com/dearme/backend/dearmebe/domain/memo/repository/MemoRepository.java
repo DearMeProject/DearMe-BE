@@ -8,6 +8,6 @@ import java.util.List;
 public interface MemoRepository extends JpaRepository<Memo, Long> {
 
     List<Memo> findByClientId(String clientId);
-    List<Memo> findAllByClientIdOrderByDateDesc(String clientId);
+    List<Memo> findAllByClientIdOrderByDateAsc(String clientId);
 }
 
