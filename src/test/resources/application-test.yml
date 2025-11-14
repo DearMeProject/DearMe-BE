@@ -16,7 +16,7 @@ spring:
 
   sql:
     init:
-      mode: never햣
+      mode: never
 
 gemini:
   api-key: testtest
