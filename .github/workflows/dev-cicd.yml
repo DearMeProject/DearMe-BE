@@ -39,7 +39,7 @@ jobs:
       - name: 5️⃣ Docker login
         uses: docker/login-action@v3
         with:
-          username: dearmeproject
+          username: eunseoo
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: 6️⃣ Build & Push Docker image
@@ -48,43 +48,39 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: dearmeproject/dearme:dev-latest
+          tags: eunseoo/dearme:latest
 
   cd:
     needs: ci
     runs-on: ubuntu-latest
 
     steps:
-      - name: 1️⃣ Create .env file
-        run: echo "${{ secrets.DEV_ENV }}" > .env
-
-      - name: 2️⃣ Upload .env to Dev Server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.DEV_SERVER_IP }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ".env"
-          target: "/home/ubuntu/dearme-dev/"
-
-      - name: 3️⃣ Upload docker-compose.dev.yml
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.DEV_SERVER_IP }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "./docker/docker-compose.dev.yml"
-          target: "/home/ubuntu/dearme-dev/"
-
       - name: 4️⃣ SSH into Dev Server & Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.DEV_SERVER_IP }}
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ubuntu/dearme-dev
-            docker pull dearmeproject/dearme:dev-latest
-            docker compose -f docker-compose.dev.yml down
-            docker compose -f docker-compose.dev.yml up -d
-            docker image prune -f
+            docker pull eunseoo/dearme:latest
+            
+            EXISTING_CONTAINER_ID=$(sudo docker ps -q -f "publish=8080" -f "status=running")
+            if [ ! -z "$EXISTING_CONTAINER_ID" ]; then
+              sudo docker stop $EXISTING_CONTAINER_ID
+              sudo docker rm $EXISTING_CONTAINER_ID
+            fi
+
+            EXISTING_CONTAINER_ID=$(sudo docker ps -q -f "publish=8080" -f "status=exited")
+            if [ ! -z "$EXISTING_CONTAINER_ID" ]; then
+              sudo docker rm $EXISTING_CONTAINER_ID
+            fi
+            
+            sudo docker run -d \
+            -p 8080:8080 \
+            -e DB_HOST=${{ secrets.DB_HOST }} \
+            -e DB_PORT=${{ secrets.DB_PORT }} \
+            -e DB_USER=${{ secrets.DB_USER }} \
+            -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            -e GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} \
+            --name dearme \
+            eunseoo/dearme:latest
