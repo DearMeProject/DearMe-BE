@@ -22,7 +22,7 @@
 ## ⚙️ 기술 스택
 - **Backend:** Spring Boot, JPA, MySQL
 - **Infra:** Docker, GitHub Actions
-- **AI Integration:** OpenAI Gemini API
+- **AI Integration:** Gemini API
 
 </br>
 
@@ -50,7 +50,7 @@
 #### 4️⃣ AI 감정 공감 답장 생성 (`POST /api/memos/counsel`)
 - [ ] 사용자가 선택한 메모 ID 배열을 보낸다.
 - [ ] 평균 감정 점수(`stressScore`) 계산
-- [ ] OpenAI API 호출 → AI 응답 생성
+- [ ] Gemini AI API 호출 → AI 응답 생성
 - [ ] 실패 시 기본 문구 반환
 
 </br>
@@ -67,16 +67,16 @@
 </br>
 
 ## 🧪 테스트 전략 (TDD)
-1. Repository 테스트부터 작성 (데이터 검증)
-2. Service 단위 테스트 (비즈니스 로직)
-3. Controller 테스트 (MockMvc)
+1. Service 단위 테스트 (비즈니스 로직)
+2. Controller 테스트 (MockMvc)
+3. PromptBuilder 테스트
 4. 예외 및 경계 테스트 추가
 
 </br>
 
 ## 💡 컨벤션
-- **Commit:** 타입(기능명): 한 줄 요약
-- **Branch:** `feat/#3-memo-domain`
+- **Commit:** `타입(기능명): 한 줄 요약`
+- **Branch:** `<타입>/<#이슈넘버>-<작업명>`
 - **PR Template:** 기능 단위 명세 중심으로 작성
 - **Code Style:** 15라인 이하 함수, SRP 원칙 준수
 
