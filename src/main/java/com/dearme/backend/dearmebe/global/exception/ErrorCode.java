@@ -23,6 +23,7 @@ public enum ErrorCode {
     MEMO_NOT_FOUND(404, HttpStatus.NOT_FOUND, "해당 메모를 찾을 수 없습니다."),
     NO_MEMOS_FOUND(404, HttpStatus.NOT_FOUND, "등록된 메모가 없습니다."),
     MEMO_ACCESS_DENIED(403, HttpStatus.FORBIDDEN, "해당 메모에 접근할 권한이 없습니다."),
+    MEMO_COUNT_INVALID(400, HttpStatus.BAD_REQUEST, "메모는 1~3개 선택해야 합니다."),
     INVALID_MEMO_REQUEST(400, HttpStatus.BAD_REQUEST, "메모 요청 데이터가 올바르지 않습니다."),
     INVALID_DATE_FORMAT(400, HttpStatus.BAD_REQUEST, "날짜 형식은 YYYY-MM-DD 이어야 합니다."),
     INVALID_EMOJI_TYPE(400, HttpStatus.BAD_REQUEST, "유효하지 않는 이모지입니다."),

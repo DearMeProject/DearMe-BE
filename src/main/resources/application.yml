@@ -1,11 +1,15 @@
 spring:
+  application:
+    name: DearME-BE
+
   datasource:
     url: jdbc:mysql://localhost:3306/dearme_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: 1234
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -16,3 +20,6 @@ jwt:
   secret: your-secret-key-example-please-change
   access-expiration: 3600000
   refresh-expiration: 1209600000
+
+gemini:
+  api-key: ${GEMINI_API_KEY:dummy-key}

@@ -1,9 +1,12 @@
 package com.dearme.backend.dearmebe.domain.memo.controller;
 
+import com.dearme.backend.dearmebe.domain.memo.dto.request.MemoCounselRequest;
 import com.dearme.backend.dearmebe.domain.memo.dto.request.MemoCreateRequest;
+import com.dearme.backend.dearmebe.domain.memo.dto.response.MemoCounselResponse;
 import com.dearme.backend.dearmebe.domain.memo.dto.response.MemoCreateResponse;
 import com.dearme.backend.dearmebe.domain.memo.dto.response.MemoDetailResponse;
 import com.dearme.backend.dearmebe.domain.memo.dto.response.MemoListResponse;
+import com.dearme.backend.dearmebe.domain.memo.service.MemoAiService;
 import com.dearme.backend.dearmebe.domain.memo.service.MemoService;
 import com.dearme.backend.dearmebe.global.response.ApiResponse;
 import org.springframework.http.HttpStatus;
@@ -16,9 +19,11 @@ import jakarta.validation.Valid;
 public class MemoController {
 
     private final MemoService memoService;
+    private final MemoAiService memoAiService;
 
-    public MemoController(MemoService memoService) {
+    public MemoController(MemoService memoService, MemoAiService memoAiService) {
         this.memoService = memoService;
+        this.memoAiService = memoAiService;
     }
 
     @PostMapping
@@ -48,5 +53,15 @@ public class MemoController {
         MemoDetailResponse response = memoService.getMemoDetail(clientId, memoId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.ok("조회 성공", response));
+    }
+
+    @PostMapping("/counsel")
+    public ResponseEntity<ApiResponse<MemoCounselResponse>> createCounsel(
+            @RequestHeader("X-Client-Id") String clientId,
+            @RequestBody @Valid MemoCounselRequest request
+    ) {
+        MemoCounselResponse response = memoAiService.createCounsel(clientId, request);
+        return ResponseEntity
+                .ok(ApiResponse.ok("조회 성공", response));
     }
 }
