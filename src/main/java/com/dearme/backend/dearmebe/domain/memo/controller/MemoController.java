@@ -21,7 +21,7 @@ public class MemoController {
     private final MemoService memoService;
     private final MemoAiService memoAiService;
 
-    public MemoController(MemoService memoService,  MemoAiService memoAiService) {
+    public MemoController(MemoService memoService, MemoAiService memoAiService) {
         this.memoService = memoService;
         this.memoAiService = memoAiService;
     }

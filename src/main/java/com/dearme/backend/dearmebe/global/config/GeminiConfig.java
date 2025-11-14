@@ -9,8 +9,8 @@ public class GeminiConfig {
     @Bean
     public RestTemplate geminiRestTemplate() {
         var factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setConnectTimeout(3000);   // 연결 타임아웃 3초
-        factory.setReadTimeout(7000);      // 응답 타임아웃 7초
+        factory.setConnectTimeout(3000);
+        factory.setReadTimeout(7000);
 
         return new RestTemplate(factory);
     }
