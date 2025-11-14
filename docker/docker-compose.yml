@@ -1,0 +1,24 @@
+services:
+
+  spring:
+    image: dearme/server:latest
+    container_name: dearme-app
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:9.0
+    container_name: dearme-mysql
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
