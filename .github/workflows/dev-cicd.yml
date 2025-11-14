@@ -63,11 +63,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull eunseoo/dearme:latest
-            
+            echo "DB_HOST=${{ secrets.DB_HOST }}" > /tmp/dearme.env
+            echo "DB_PORT=${{ secrets.DB_PORT }}" >> /tmp/dearme.env
+            echo "DB_USER=${{ secrets.DB_USER }}" >> /tmp/dearme.env
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> /tmp/dearme.env
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> /tmp/dearme.env
             EXISTING_CONTAINER_ID=$(sudo docker ps -q -f "publish=8080")
-            if [ ! -z "$EXISTING_CONTAINER_ID" ]; then
-              sudo docker stop $EXISTING_CONTAINER_ID
-              sudo docker rm $EXISTING_CONTAINER_ID
-            fi
-            
-            sudo docker run -d -p 8080:8080 -e DB_HOST=${{ secrets.DB_HOST }} -e DB_PORT=${{ secrets.DB_PORT }} -e DB_USER=${{ secrets.DB_USER }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} --name dearme eunseoo/dearme:latest
+            if [ ! -z "$EXISTING_CONTAINER_ID" ]; then sudo docker stop $EXISTING_CONTAINER_ID && sudo docker rm $EXISTING_CONTAINER_ID; fi
+            sudo docker run -d -p 8080:8080 --env-file /tmp/dearme.env --name dearme --restart unless-stopped eunseoo/dearme:latest
+            rm -f /tmp/dearme.env
+            sudo docker image prune -f
