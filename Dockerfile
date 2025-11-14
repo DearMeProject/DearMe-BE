@@ -20,7 +20,7 @@ RUN ./gradlew clean build -x test --no-daemon
 # ==============================
 # 2단계: 애플리케이션 실행 이미지 (Runtime Stage)
 # ==============================
-FROM eclipse-temurin:21-jdk-slim
+FROM eclipse-temurin:21
 WORKDIR /app
 
 # 빌드 결과물 복사
