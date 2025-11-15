@@ -12,6 +12,10 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI() {
 
+        Server localServer = new Server()
+                .url("http://localhost:8080")
+                .description("로컬 테스트 서버");
+
         Server httpsServer = new Server()
                 .url("https://43-200-255-137.nip.io")   // <-- HTTPS 주소
                 .description("배포 서버");
@@ -21,6 +25,6 @@ public class SwaggerConfig {
                         .title("DearMe REST API")
                         .description("DearMe - REST API Swagger 문서")
                         .version("v1.0.0"))
-                .servers(java.util.List.of(httpsServer));
+                .servers(java.util.List.of(localServer, httpsServer));
     }
 }
