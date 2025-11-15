@@ -48,12 +48,8 @@ public class MemoService {
     public MemoListResponse getAllMemos(String clientId) {
         List<Memo> memos = memoRepository.findAllByClientIdOrderByDateAsc(clientId);
 
-        if (memos.isEmpty()) {
-            throw new CustomException(ErrorCode.NO_MEMOS_FOUND, "등록된 메모가 없습니다.");
-        }
-
         return MemoListResponse.from(clientId, memos);
-    }
+    }  // 듀기 걍 이대로 가묜 되는데여 ㅇㅅㅇ 다시 해볼개 404오류떠요,,,, 무슨 404 오류죠듀기 카톡으로 보내바요
 
     public MemoDetailResponse getMemoDetail(String clientId, Long memoId) {
         Memo memo = memoRepository.findById(memoId)
