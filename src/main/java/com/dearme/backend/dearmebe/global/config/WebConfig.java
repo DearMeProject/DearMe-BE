@@ -10,8 +10,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*") // 배포, 로컬 두 개 만들기.
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE",  "OPTIONS")
+                .allowedOrigins(
+                        "http://localhost:5173",           // 로컬 개발용
+                        "https://dear-me-five.vercel.app"  // 배포된 프론트엔드
+                )
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(false);
     }
