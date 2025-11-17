@@ -12,7 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins(
                         "http://localhost:5173",           // 로컬 개발용
-                        "https://dear-me-five.vercel.app"  // 배포된 프론트엔드
+                        "https://dear-me-five.vercel.app",  // 배포된 프론트엔드
+                        "https://43-201-35-136.nip.io"  // Swagger UI 실행 주소
                 )
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
