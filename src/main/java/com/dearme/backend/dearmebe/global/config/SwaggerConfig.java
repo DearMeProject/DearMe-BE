@@ -17,7 +17,7 @@ public class SwaggerConfig {
                 .description("로컬 테스트 서버");
 
         Server httpsServer = new Server()
-                .url("https://43-200-255-137.nip.io")   // <-- HTTPS 주소
+                .url("https://43-201-35-136.nip.io")   // <-- HTTPS 주소
                 .description("배포 서버");
 
         return new OpenAPI()

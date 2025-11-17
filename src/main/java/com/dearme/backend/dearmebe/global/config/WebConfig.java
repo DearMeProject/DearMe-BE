@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins("*") // 배포, 로컬 두 개 만들기.
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE",  "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(false);
