@@ -21,7 +21,7 @@
 
 ## ⚙️ 기술 스택
 - **Backend:** Spring Boot, JPA, MySQL
-- **Infra:** Docker, GitHub Actions
+- **Infra:** EC2, Docker, GitHub Actions
 - **AI Integration:** Gemini API
 
 </br>
