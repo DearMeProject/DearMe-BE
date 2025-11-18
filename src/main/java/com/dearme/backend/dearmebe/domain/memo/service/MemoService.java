@@ -48,10 +48,6 @@ public class MemoService {
     public MemoListResponse getAllMemos(String clientId) {
         List<Memo> memos = memoRepository.findAllByClientIdOrderByDateAsc(clientId);
 
-        if (memos.isEmpty()) {
-            throw new CustomException(ErrorCode.NO_MEMOS_FOUND, "등록된 메모가 없습니다.");
-        }
-
         return MemoListResponse.from(clientId, memos);
     }
 
